@@ -34,4 +34,21 @@ impl Snake {
     pub fn contains_point(&self, point: &Point) -> bool {
         self.body.contains(point)
     }
+
+    pub fn slither(&mut self) {
+        self.body.insert(0, self.body.first().unwrap().transform(self.direction, 1));
+        if !self.digesting {
+            self.body.remove(self.body.len() - 1);
+        } else {
+            self.digesting = false;
+        }
+    }
+
+    pub fn set_direction(&mut self, direction: Direction) {
+        self.direction = direction;
+    }
+
+    pub fn grow(&mut self) {
+        self.digesting = true;
+    }
 }
